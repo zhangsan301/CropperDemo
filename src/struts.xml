@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <!--设置为开发者模式-->
+    <constant name="struts.devMode" value="true"></constant>
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+
+    <!--上传文件的最大限制-->
+    <constant name="struts.multipart.maxSize" value="1048567"></constant>
+
+    <package name="CropperDemo" namespace="/" extends="struts-default">
+       <!--开启所有动态方法调用-->
+       <global-allowed-methods>regex:.*</global-allowed-methods>
+       <action name="ImageAction_*" class="com.sikiedu.web.ImageAction" method="{1}">
+           <result name="success" type="stream">
+<!--下载模式（attachment默认会打开一个下载的框框)inline表示浏览器会打开文件-->
+               <param name="contentDisposition">attachment;filename=${upName}</param>
+<!--action中,流的名字-->
+               <param name="inputName">inputStream</param>
+<!--下载的缓冲区的大小-->
+               <param name="bufferSize">1024</param>
+
+           </result>
+       </action>
+
+
+    </package>
+
+
+</struts>
